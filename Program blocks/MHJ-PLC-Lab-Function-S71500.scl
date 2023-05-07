@@ -1,0 +1,55 @@
+﻿FUNCTION "MHJ-PLC-Lab-Function-S71500" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_TEMP 
+      Value : Byte;
+      ForCounter : Int;
+   END_VAR
+
+   VAR CONSTANT 
+      Value_01_DW : DWord := 16#1223_5486;
+      Value_02_DW : DWord := 16#A6C9_D1F5;
+   END_VAR
+
+
+BEGIN
+	
+	#Value:=PEEK(area := 16#82,
+	     dbNumber := 0,
+	     byteOffset := 511);
+	#Value := #Value + 1;
+	
+	POKE(area := 16#82,
+	     dbNumber := 0,
+	     byteOffset := 511,
+	     value := #Value);
+	
+	POKE(area := 16#82,
+	     dbNumber := 0,
+	     byteOffset := 1016,
+	     value := #Value_01_DW);
+	POKE(area := 16#82,
+	     dbNumber := 0,
+	     byteOffset := 1020,
+	     value := #Value_02_DW);
+	
+	FOR #ForCounter := 0 TO 63 DO
+	    #Value:=PEEK(area := 16#1,
+	         dbNumber := 0,
+	         byteOffset := #ForCounter);
+	    POKE(area := 16#81,
+	         dbNumber := 0,
+	         byteOffset := #ForCounter,
+	         value := #Value);
+	END_FOR;
+	#Value := PEEK(area := 16#1,
+	               dbNumber := 0,
+	               byteOffset := 512);
+	POKE(area := 16#82,
+	     dbNumber := 0,
+	     byteOffset := 512,
+	     value := #Value);
+	
+	    
+END_FUNCTION
+
