@@ -1,0 +1,40 @@
+﻿FUNCTION_BLOCK "Measurement"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      y : Real;   // zmierzona wartość odpowiedzi
+   END_VAR
+
+   VAR_OUTPUT 
+      r : Real;   // sygnał wysyłany na obiekt
+      finish : Bool;   // sygnalizacja zakończenia pomiaru
+   END_VAR
+
+   VAR 
+      r_array : Array[0..249] of Real;   // zapisywany wektor wzorcowy wejść
+      y_array : Array[0..249] of Real;   // zapisywany wektor wzorcowy odpowiedzi
+      i : Int;   // iteracja, zmienna pomocnicza
+   END_VAR
+
+
+BEGIN
+	IF #i=0 THEN
+	    #r:=#r_array[#i];
+	END_IF;
+	
+	IF #i>0 THEN
+	    IF #i<250 THEN
+	        #y_array[#i-1]:=#y;
+	        #r:=#r_array[#i];
+	    END_IF;
+	END_IF;
+	
+	IF #i=250 THEN
+	    #y_array[#i-1]:=#y;
+	    #finish:=true;
+	    #r:=0.0;
+	END_IF;
+	
+	#i:=#i+1;
+END_FUNCTION_BLOCK
+

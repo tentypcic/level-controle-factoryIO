@@ -1,0 +1,52 @@
+﻿FUNCTION_BLOCK "Generator"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_OUTPUT 
+      wartosc_zaklocenia : Real;
+      u : LReal;
+   END_VAR
+
+   VAR 
+      k : Real;
+      i : Int;
+   END_VAR
+
+
+BEGIN
+	(*SV*)
+	IF #k<=25.0 THEN
+	#u:=0.0; 
+	END_IF;
+	IF #k>25.0 THEN
+	#u:=2.0; 
+	END_IF;
+	IF #k>175.0 THEN
+	#u:=-2.0; 
+	END_IF;
+	IF #k>250.0 THEN
+	#u:=2.0*SIN(2.0*3.1416*#k/50.0); 
+	END_IF;
+	IF #k>400.0 THEN
+	#u:=0.0; 
+	END_IF;
+	
+	(*ZAKLOCENIE*)
+	IF #k<=100.0 THEN
+	#wartosc_zaklocenia:=0.0; 
+	END_IF;
+	IF #k>75.0 THEN
+	#wartosc_zaklocenia:=-1.0; 
+	END_IF;
+	IF #k>125.0 THEN
+	#wartosc_zaklocenia:=0.0; 
+	END_IF;
+	IF #k>300.0 THEN
+	#wartosc_zaklocenia:=-1.0; 
+	END_IF;
+	IF #k>400.0 THEN
+	#wartosc_zaklocenia:=0.0; 
+	END_IF;
+	
+	#k:=#k+1.0;
+END_FUNCTION_BLOCK
+

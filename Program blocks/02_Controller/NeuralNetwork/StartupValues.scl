@@ -1,0 +1,84 @@
+﻿FUNCTION "StartupValues" : Void
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+
+BEGIN
+	"Model_DB".N:=8;
+	"Inversion_DB".N:=8;
+	
+	"Model_DB".w1_1[0]:=0.0947;"Model_DB".w1_1[1]:=-0.0755;"Model_DB".w1_1[2]:=-0.0989;"Model_DB".w1_1[3]:=-0.0972;"Model_DB".w1_1[4]:=0.0946;"Model_DB".w1_1[5]:=-0.0280;"Model_DB".w1_1[6]:=-0.0111;"Model_DB".w1_1[7]:=-0.0137;
+	"Model_DB".w1_2[0]:=-0.0590;"Model_DB".w1_2[1]:=-0.0059;"Model_DB".w1_2[2]:=0.0382;"Model_DB".w1_2[3]:=-0.0107;"Model_DB".w1_2[4]:=-0.0165;"Model_DB".w1_2[5]:=-0.0539;"Model_DB".w1_2[6]:=0.0721;"Model_DB".w1_2[7]:=0.0880;
+	"Model_DB".w1_3[0]:=-0.0367;"Model_DB".w1_3[1]:=0.0941;"Model_DB".w1_3[2]:=0.0776;"Model_DB".w1_3[3]:=0.0644;"Model_DB".w1_3[4]:=0.0289;"Model_DB".w1_3[5]:=0.0670;"Model_DB".w1_3[6]:=-0.0905;"Model_DB".w1_3[7]:=0.0183;
+	"Model_DB".w1_4[0]:=0.0985;"Model_DB".w1_4[1]:=-0.0487;"Model_DB".w1_4[2]:=-0.0788;"Model_DB".w1_4[3]:=-0.0514;"Model_DB".w1_4[4]:=-0.0354;"Model_DB".w1_4[5]:=0.0116;"Model_DB".w1_4[6]:=-0.0407;"Model_DB".w1_4[7]:=0.0417;
+	"Model_DB".w1_5[0]:=-0.0128;"Model_DB".w1_5[1]:=0.0692;"Model_DB".w1_5[2]:=-0.0502;"Model_DB".w1_5[3]:=0.0642;"Model_DB".w1_5[4]:=0.0651;"Model_DB".w1_5[5]:=-0.0490;"Model_DB".w1_5[6]:=0.0467;"Model_DB".w1_5[7]:=0.0328;
+	"Model_DB".w1_6[0]:=0.0572;"Model_DB".w1_6[1]:=0.0508;"Model_DB".w1_6[2]:=0.0995;"Model_DB".w1_6[3]:=0.0541;"Model_DB".w1_6[4]:=0.0762;"Model_DB".w1_6[5]:=-0.0299;"Model_DB".w1_6[6]:=0.0620;"Model_DB".w1_6[7]:=0.0941;
+	
+	"Model_DB".w_2[0]:=-0.0526;"Model_DB".w_2[1]:=-0.0155;"Model_DB".w_2[2]:=0.0993;"Model_DB".w_2[3]:=0.0224;"Model_DB".w_2[4]:=-0.0963;"Model_DB".w_2[5]:=0.0916;"Model_DB".w_2[6]:=-0.0890;"Model_DB".w_2[7]:=0.0937;
+	
+	"Model_DB".bias[0]:=-0.0168;"Model_DB".bias[1]:=0.0702;"Model_DB".bias[2]:=0.0775;"Model_DB".bias[3]:=-0.0036;"Model_DB".bias[4]:=-0.0820;"Model_DB".bias[5]:=-0.0017;"Model_DB".bias[6]:=0.0254;"Model_DB".bias[7]:=0.0210;
+	"Model_DB".bias2:=0.0159;
+	
+	"Inversion_DB".w1_1[0]:=0.0502;"Inversion_DB".w1_1[1]:=-0.0982;"Inversion_DB".w1_1[2]:=-0.0046;"Inversion_DB".w1_1[3]:=-0.0499;"Inversion_DB".w1_1[4]:=-0.0384;"Inversion_DB".w1_1[5]:=0.0934;"Inversion_DB".w1_1[6]:=-0.0582;"Inversion_DB".w1_1[7]:=0.0041;
+	"Inversion_DB".w1_2[0]:=-0.0549;"Inversion_DB".w1_2[1]:=0.0134;"Inversion_DB".w1_2[2]:=0.0996;"Inversion_DB".w1_2[3]:=-0.0736;"Inversion_DB".w1_2[4]:=0.0909;"Inversion_DB".w1_2[5]:=-0.0752;"Inversion_DB".w1_2[6]:=-0.0628;"Inversion_DB".w1_2[7]:=0.0293;
+	"Inversion_DB".w1_3[0]:=-0.0744;"Inversion_DB".w1_3[1]:=-0.0837;"Inversion_DB".w1_3[2]:=0.0318;"Inversion_DB".w1_3[3]:=-0.0945;"Inversion_DB".w1_3[4]:=0.0970;"Inversion_DB".w1_3[5]:=0.0079;"Inversion_DB".w1_3[6]:=-0.0252;"Inversion_DB".w1_3[7]:=0.0413;
+	"Inversion_DB".w1_4[0]:=0.0895;"Inversion_DB".w1_4[1]:=-0.0235;"Inversion_DB".w1_4[2]:=0.0386;"Inversion_DB".w1_4[3]:=0.0204;"Inversion_DB".w1_4[4]:=0.0551;"Inversion_DB".w1_4[5]:=0.0184;"Inversion_DB".w1_4[6]:=-0.0248;"Inversion_DB".w1_4[7]:=0.0701;
+	"Inversion_DB".w1_5[0]:=-0.0549;"Inversion_DB".w1_5[1]:=0.0594;"Inversion_DB".w1_5[2]:=0.0994;"Inversion_DB".w1_5[3]:=-0.0437;"Inversion_DB".w1_5[4]:=0.0421;"Inversion_DB".w1_5[5]:=0.0329;"Inversion_DB".w1_5[6]:=-0.0170;"Inversion_DB".w1_5[7]:=-0.0003;
+	"Inversion_DB".w1_6[0]:=0.0898;"Inversion_DB".w1_6[1]:=0.0906;"Inversion_DB".w1_6[2]:=0.0466;"Inversion_DB".w1_6[3]:=-0.0231;"Inversion_DB".w1_6[4]:=-0.0920;"Inversion_DB".w1_6[5]:=0.0166;"Inversion_DB".w1_6[6]:=0.0129;"Inversion_DB".w1_6[7]:=-0.0290;
+	
+	"Inversion_DB".w_2[0]:=0.0760;"Inversion_DB".w_2[1]:=0.0249;"Inversion_DB".w_2[2]:=0.0248;"Inversion_DB".w_2[3]:=-0.0409;"Inversion_DB".w_2[4]:=-0.0851;"Inversion_DB".w_2[5]:=-0.0413;"Inversion_DB".w_2[6]:=-0.0531;"Inversion_DB".w_2[7]:=-0.0308;
+	
+	"Inversion_DB".bias[0]:=0.0697;"Inversion_DB".bias[1]:=-0.0679;"Inversion_DB".bias[2]:=-0.0684;"Inversion_DB".bias[3]:=0.0017;"Inversion_DB".bias[4]:=0.0207;"Inversion_DB".bias[5]:=-0.0677;"Inversion_DB".bias[6]:=0.0271;"Inversion_DB".bias[7]:=0.0688;
+	"Inversion_DB".bias2:=0.0565;
+	
+	"Measurement_DB".r_array[0]:=7.7353;"Measurement_DB".r_array[1]:=-1.5888;"Measurement_DB".r_array[2]:=-4.3230;"Measurement_DB".r_array[3]:=-9.0364;"Measurement_DB".r_array[4]:=-5.6167;
+	"Measurement_DB".r_array[5]:=-5.2165;"Measurement_DB".r_array[6]:=-9.4148;"Measurement_DB".r_array[7]:=4.0462;"Measurement_DB".r_array[8]:=-9.8473;"Measurement_DB".r_array[9]:=2.2184;
+	"Measurement_DB".r_array[10]:=-1.8382;"Measurement_DB".r_array[11]:=-5.0211;"Measurement_DB".r_array[12]:=3.0492;"Measurement_DB".r_array[13]:=-3.5945;"Measurement_DB".r_array[14]:=-7.9266;
+	"Measurement_DB".r_array[15]:=0.7113;"Measurement_DB".r_array[16]:=-6.7026;"Measurement_DB".r_array[17]:=7.6688;"Measurement_DB".r_array[18]:=3.3291;"Measurement_DB".r_array[19]:=6.9548;
+	"Measurement_DB".r_array[20]:=5.2532;"Measurement_DB".r_array[21]:=6.1403;"Measurement_DB".r_array[22]:=2.6590;"Measurement_DB".r_array[23]:=4.2085;"Measurement_DB".r_array[24]:=3.7733;
+	"Measurement_DB".r_array[25]:=-3.5810;"Measurement_DB".r_array[26]:=0.6330;"Measurement_DB".r_array[27]:=7.4639;"Measurement_DB".r_array[28]:=-8.9092;"Measurement_DB".r_array[29]:=0.0080;
+	"Measurement_DB".r_array[30]:=-1.3447;"Measurement_DB".r_array[31]:=8.0856;"Measurement_DB".r_array[32]:=2.6037;"Measurement_DB".r_array[33]:=9.6607;"Measurement_DB".r_array[34]:=1.7040;
+	"Measurement_DB".r_array[35]:=6.8127;"Measurement_DB".r_array[36]:=-0.6237;"Measurement_DB".r_array[37]:=0.9044;"Measurement_DB".r_array[38]:=-6.4179;"Measurement_DB".r_array[39]:=2.6892;
+	"Measurement_DB".r_array[40]:=9.2592;"Measurement_DB".r_array[41]:=0.6803;"Measurement_DB".r_array[42]:=-0.4077;"Measurement_DB".r_array[43]:=5.8733;"Measurement_DB".r_array[44]:=-8.1457;
+	"Measurement_DB".r_array[45]:=7.6160;"Measurement_DB".r_array[46]:=-9.9225;"Measurement_DB".r_array[47]:=0.2306;"Measurement_DB".r_array[48]:=3.5693;"Measurement_DB".r_array[49]:=1.3150;
+	"Measurement_DB".r_array[50]:=-0.4308;"Measurement_DB".r_array[51]:=-3.5897;"Measurement_DB".r_array[52]:=2.0316;"Measurement_DB".r_array[53]:=8.2631;"Measurement_DB".r_array[54]:=3.6504;
+	"Measurement_DB".r_array[55]:=8.9347;"Measurement_DB".r_array[56]:=-8.0182;"Measurement_DB".r_array[57]:=0.2206;"Measurement_DB".r_array[58]:=-7.7974;"Measurement_DB".r_array[59]:=0.9052;
+	"Measurement_DB".r_array[60]:=3.7757;"Measurement_DB".r_array[61]:=-7.0517;"Measurement_DB".r_array[62]:=5.5512;"Measurement_DB".r_array[63]:=-2.0190;"Measurement_DB".r_array[64]:=7.9660;
+	"Measurement_DB".r_array[65]:=-3.8591;"Measurement_DB".r_array[66]:=-8.7790;"Measurement_DB".r_array[67]:=-5.6106;"Measurement_DB".r_array[68]:=-8.3433;"Measurement_DB".r_array[69]:=9.0079;
+	"Measurement_DB".r_array[70]:=-9.6726;"Measurement_DB".r_array[71]:=-7.7066;"Measurement_DB".r_array[72]:=-9.7518;"Measurement_DB".r_array[73]:=-5.6755;"Measurement_DB".r_array[74]:=-9.7714;
+	"Measurement_DB".r_array[75]:=2.8490;"Measurement_DB".r_array[76]:=0.3398;"Measurement_DB".r_array[77]:=-5.0892;"Measurement_DB".r_array[78]:=-6.1251;"Measurement_DB".r_array[79]:=-8.1826;
+	"Measurement_DB".r_array[80]:=-2.6312;"Measurement_DB".r_array[81]:=-9.8441;"Measurement_DB".r_array[82]:=2.0540;"Measurement_DB".r_array[83]:=-0.4229;"Measurement_DB".r_array[84]:=-3.8376;
+	"Measurement_DB".r_array[85]:=4.8889;"Measurement_DB".r_array[86]:=6.7870;"Measurement_DB".r_array[87]:=-4.7514;"Measurement_DB".r_array[88]:=0.2848;"Measurement_DB".r_array[89]:=-1.0645;
+	"Measurement_DB".r_array[90]:=-3.1758;"Measurement_DB".r_array[91]:=6.7828;"Measurement_DB".r_array[92]:=9.6499;"Measurement_DB".r_array[93]:=2.5293;"Measurement_DB".r_array[94]:=-6.3745;
+	"Measurement_DB".r_array[95]:=-7.5397;"Measurement_DB".r_array[96]:=1.5994;"Measurement_DB".r_array[97]:=-3.4293;"Measurement_DB".r_array[98]:=-4.6363;"Measurement_DB".r_array[99]:=1.0048;
+	"Measurement_DB".r_array[100]:=-6.3897;"Measurement_DB".r_array[101]:=3.5698;"Measurement_DB".r_array[102]:=-8.8862;"Measurement_DB".r_array[103]:=-9.3189;"Measurement_DB".r_array[104]:=-4.2696;
+	"Measurement_DB".r_array[105]:=-8.4522;"Measurement_DB".r_array[106]:=8.0114;"Measurement_DB".r_array[107]:=6.9321;"Measurement_DB".r_array[108]:=-2.0860;"Measurement_DB".r_array[109]:=-6.6157;
+	"Measurement_DB".r_array[110]:=-1.3910;"Measurement_DB".r_array[111]:=-1.6756;"Measurement_DB".r_array[112]:=4.5753;"Measurement_DB".r_array[113]:=-1.8705;"Measurement_DB".r_array[114]:=9.0361;
+	"Measurement_DB".r_array[115]:=8.2397;"Measurement_DB".r_array[116]:=9.0283;"Measurement_DB".r_array[117]:=-3.0800;"Measurement_DB".r_array[118]:=-4.1951;"Measurement_DB".r_array[119]:=7.7340;
+	"Measurement_DB".r_array[120]:=-5.7994;"Measurement_DB".r_array[121]:=-7.3825;"Measurement_DB".r_array[122]:=0.4103;"Measurement_DB".r_array[123]:=8.1093;"Measurement_DB".r_array[124]:=-1.9494;
+	"Measurement_DB".r_array[125]:=-5.6848;"Measurement_DB".r_array[126]:=-8.4252;"Measurement_DB".r_array[127]:=8.6612;"Measurement_DB".r_array[128]:=2.0574;"Measurement_DB".r_array[129]:=-2.4502;
+	"Measurement_DB".r_array[130]:=3.2986;"Measurement_DB".r_array[131]:=5.8438;"Measurement_DB".r_array[132]:=-3.3302;"Measurement_DB".r_array[133]:=3.8532;"Measurement_DB".r_array[134]:=-5.9237;
+	"Measurement_DB".r_array[135]:=9.1743;"Measurement_DB".r_array[136]:=4.2366;"Measurement_DB".r_array[137]:=-6.6619;"Measurement_DB".r_array[138]:=-1.1445;"Measurement_DB".r_array[139]:=2.6599;
+	"Measurement_DB".r_array[140]:=8.5993;"Measurement_DB".r_array[141]:=0.5866;"Measurement_DB".r_array[142]:=2.5295;"Measurement_DB".r_array[143]:=3.6164;"Measurement_DB".r_array[144]:=8.4640;
+	"Measurement_DB".r_array[145]:=-6.9433;"Measurement_DB".r_array[146]:=-1.8856;"Measurement_DB".r_array[147]:=-3.7505;"Measurement_DB".r_array[148]:=3.8780;"Measurement_DB".r_array[149]:=7.8138;
+	"Measurement_DB".r_array[150]:=-0.1866;"Measurement_DB".r_array[151]:=6.1165;"Measurement_DB".r_array[152]:=-3.4712;"Measurement_DB".r_array[153]:=0.9976;"Measurement_DB".r_array[154]:=-2.2243;
+	"Measurement_DB".r_array[155]:=7.9366;"Measurement_DB".r_array[156]:=3.5224;"Measurement_DB".r_array[157]:=6.5679;"Measurement_DB".r_array[158]:=-7.7982;"Measurement_DB".r_array[159]:=-4.4155;
+	"Measurement_DB".r_array[160]:=5.3527;"Measurement_DB".r_array[161]:=-5.6789;"Measurement_DB".r_array[162]:=-9.3188;"Measurement_DB".r_array[163]:=-1.2690;"Measurement_DB".r_array[164]:=8.7373;
+	"Measurement_DB".r_array[165]:=-4.7582;"Measurement_DB".r_array[166]:=1.3949;"Measurement_DB".r_array[167]:=-2.8089;"Measurement_DB".r_array[168]:=-9.4632;"Measurement_DB".r_array[169]:=0.0084;
+	"Measurement_DB".r_array[170]:=6.5403;"Measurement_DB".r_array[171]:=-4.8204;"Measurement_DB".r_array[172]:=-9.0823;"Measurement_DB".r_array[173]:=-5.0706;"Measurement_DB".r_array[174]:=3.2146;
+	"Measurement_DB".r_array[175]:=-3.4118;"Measurement_DB".r_array[176]:=3.1899;"Measurement_DB".r_array[177]:=-9.7399;"Measurement_DB".r_array[178]:=4.3614;"Measurement_DB".r_array[179]:=-2.1776;
+	"Measurement_DB".r_array[180]:=-9.3299;"Measurement_DB".r_array[181]:=-1.8797;"Measurement_DB".r_array[182]:=4.3262;"Measurement_DB".r_array[183]:=8.4267;"Measurement_DB".r_array[184]:=9.6803;
+	"Measurement_DB".r_array[185]:=9.6684;"Measurement_DB".r_array[186]:=7.9261;"Measurement_DB".r_array[187]:=7.3141;"Measurement_DB".r_array[188]:=6.0192;"Measurement_DB".r_array[189]:=1.0996;
+	"Measurement_DB".r_array[190]:=-1.6226;"Measurement_DB".r_array[191]:=-7.4575;"Measurement_DB".r_array[192]:=3.0924;"Measurement_DB".r_array[193]:=7.2793;"Measurement_DB".r_array[194]:=-4.5080;
+	"Measurement_DB".r_array[195]:=6.8033;"Measurement_DB".r_array[196]:=-8.5849;"Measurement_DB".r_array[197]:=-2.4242;"Measurement_DB".r_array[198]:=-4.6366;"Measurement_DB".r_array[199]:=-6.9416;
+	"Measurement_DB".r_array[200]:=2.6200;"Measurement_DB".r_array[201]:=-3.6725;"Measurement_DB".r_array[202]:=9.1822;"Measurement_DB".r_array[203]:=-0.0265;"Measurement_DB".r_array[204]:=4.7722;
+	"Measurement_DB".r_array[205]:=-9.7449;"Measurement_DB".r_array[206]:=2.1071;"Measurement_DB".r_array[207]:=1.5290;"Measurement_DB".r_array[208]:=6.1476;"Measurement_DB".r_array[209]:=3.0994;
+	"Measurement_DB".r_array[210]:=7.5646;"Measurement_DB".r_array[211]:=8.0475;"Measurement_DB".r_array[212]:=-6.9553;"Measurement_DB".r_array[213]:=-6.1484;"Measurement_DB".r_array[214]:=5.8195;
+	"Measurement_DB".r_array[215]:=-8.7859;"Measurement_DB".r_array[216]:=-2.2035;"Measurement_DB".r_array[217]:=-4.0007;"Measurement_DB".r_array[218]:=4.6836;"Measurement_DB".r_array[219]:=-7.9158;
+	"Measurement_DB".r_array[220]:=5.8515;"Measurement_DB".r_array[221]:=5.6546;"Measurement_DB".r_array[222]:=0.6480;"Measurement_DB".r_array[223]:=-4.9330;"Measurement_DB".r_array[224]:=-8.5809;
+	"Measurement_DB".r_array[225]:=2.5161;"Measurement_DB".r_array[226]:=-9.5064;"Measurement_DB".r_array[227]:=-8.7592;"Measurement_DB".r_array[228]:=-7.4078;"Measurement_DB".r_array[229]:=-0.9877;
+	"Measurement_DB".r_array[230]:=3.4467;"Measurement_DB".r_array[231]:=7.1222;"Measurement_DB".r_array[232]:=-0.0311;"Measurement_DB".r_array[233]:=-9.0243;"Measurement_DB".r_array[234]:=-3.7234;
+	"Measurement_DB".r_array[235]:=2.8326;"Measurement_DB".r_array[236]:=5.7277;"Measurement_DB".r_array[237]:=-4.2170;"Measurement_DB".r_array[238]:=-0.0426;"Measurement_DB".r_array[239]:=6.3687;
+	"Measurement_DB".r_array[240]:=1.9026;"Measurement_DB".r_array[241]:=0.7285;"Measurement_DB".r_array[242]:=-3.3825;"Measurement_DB".r_array[243]:=-1.7662;"Measurement_DB".r_array[244]:=5.8801;
+	"Measurement_DB".r_array[245]:=-3.1358;"Measurement_DB".r_array[246]:=-0.7479;"Measurement_DB".r_array[247]:=-2.6435;"Measurement_DB".r_array[248]:=3.5914;"Measurement_DB".r_array[249]:=1.3556;
+END_FUNCTION
+

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V17" />
+  <DocumentInfo>
+    <Created>2023-05-07T12:12:09.1582926Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <OptionPackage>
+        <DisplayName>TIA Portal Version Control Interface</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <OptionPackage>
+        <DisplayName>TIA Portal Test Suite Advanced</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>SIMATIC Energy Suite</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <OptionPackage>
+        <DisplayName>STEP 7 Safety</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.OB ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+  <Section Name="Input">
+    <Member Name="Initial_Call" Datatype="Bool" Accessibility="Public" Informative="true">
+      <Comment>
+        <MultiLanguageText Lang="en-US">Initial call of this OB</MultiLanguageText>
+      </Comment>
+    </Member>
+    <Member Name="Event_Count" Datatype="Int" Accessibility="Public" Informative="true">
+      <Comment>
+        <MultiLanguageText Lang="en-US">Events discarded</MultiLanguageText>
+      </Comment>
+    </Member>
+  </Section>
+  <Section Name="Temp" />
+  <Section Name="Constant" />
+</Sections></Interface>
+      <IsIECCheckEnabled>false</IsIECCheckEnabled>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <Name>PID_C</Name>
+      <Number>30</Number>
+      <ProgrammingLanguage>LAD</ProgrammingLanguage>
+      <SecondaryType>CyclicInterrupt</SecondaryType>
+      <SetENOAutomatically>false</SetENOAutomatically>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v4">
+  <Parts>
+    <Access Scope="GlobalVariable" UId="21">
+      <Symbol>
+        <Component Name="ControllerData" />
+        <Component Name="PID_Compact" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="22">
+      <Symbol>
+        <Component Name="VisuData" />
+        <Component Name="SetPointShow" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="23">
+      <Symbol>
+        <Component Name="VisuData" />
+        <Component Name="LevelMeterShow" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="24">
+      <Symbol>
+        <Component Name="ControllerData" />
+        <Component Name="Output_PID_Compact" />
+      </Symbol>
+    </Access>
+    <Part Name="Contact" UId="25" />
+    <Part Name="PID_Compact" Version="2.2" UId="26">
+      <Instance Scope="GlobalVariable" UId="27">
+        <Component Name="PID_Compact_1" />
+      </Instance>
+    </Part>
+  </Parts>
+  <Wires>
+    <Wire UId="46">
+      <Powerrail />
+      <NameCon UId="25" Name="in" />
+    </Wire>
+    <Wire UId="47">
+      <IdentCon UId="21" />
+      <NameCon UId="25" Name="operand" />
+    </Wire>
+    <Wire UId="48">
+      <NameCon UId="25" Name="out" />
+      <NameCon UId="26" Name="en" />
+    </Wire>
+    <Wire UId="49">
+      <IdentCon UId="22" />
+      <NameCon UId="26" Name="Setpoint" />
+    </Wire>
+    <Wire UId="50">
+      <IdentCon UId="23" />
+      <NameCon UId="26" Name="Input" />
+    </Wire>
+    <Wire UId="51">
+      <OpenCon UId="28" />
+      <NameCon UId="26" Name="Input_PER" />
+    </Wire>
+    <Wire UId="52">
+      <OpenCon UId="29" />
+      <NameCon UId="26" Name="Disturbance" />
+    </Wire>
+    <Wire UId="53">
+      <OpenCon UId="30" />
+      <NameCon UId="26" Name="ManualEnable" />
+    </Wire>
+    <Wire UId="54">
+      <OpenCon UId="31" />
+      <NameCon UId="26" Name="ManualValue" />
+    </Wire>
+    <Wire UId="55">
+      <OpenCon UId="32" />
+      <NameCon UId="26" Name="ErrorAck" />
+    </Wire>
+    <Wire UId="56">
+      <OpenCon UId="33" />
+      <NameCon UId="26" Name="Reset" />
+    </Wire>
+    <Wire UId="57">
+      <OpenCon UId="34" />
+      <NameCon UId="26" Name="ModeActivate" />
+    </Wire>
+    <Wire UId="58">
+      <OpenCon UId="35" />
+      <NameCon UId="26" Name="Mode" />
+    </Wire>
+    <Wire UId="59">
+      <NameCon UId="26" Name="ScaledInput" />
+      <OpenCon UId="36" />
+    </Wire>
+    <Wire UId="60">
+      <NameCon UId="26" Name="Output" />
+      <OpenCon UId="37" />
+    </Wire>
+    <Wire UId="61">
+      <NameCon UId="26" Name="Output_PER" />
+      <IdentCon UId="24" />
+    </Wire>
+    <Wire UId="62">
+      <NameCon UId="26" Name="Output_PWM" />
+      <OpenCon UId="38" />
+    </Wire>
+    <Wire UId="63">
+      <NameCon UId="26" Name="SetpointLimit_H" />
+      <OpenCon UId="39" />
+    </Wire>
+    <Wire UId="64">
+      <NameCon UId="26" Name="SetpointLimit_L" />
+      <OpenCon UId="40" />
+    </Wire>
+    <Wire UId="65">
+      <NameCon UId="26" Name="InputWarning_H" />
+      <OpenCon UId="41" />
+    </Wire>
+    <Wire UId="66">
+      <NameCon UId="26" Name="InputWarning_L" />
+      <OpenCon UId="42" />
+    </Wire>
+    <Wire UId="67">
+      <NameCon UId="26" Name="State" />
+      <OpenCon UId="43" />
+    </Wire>
+    <Wire UId="68">
+      <NameCon UId="26" Name="Error" />
+      <OpenCon UId="44" />
+    </Wire>
+    <Wire UId="69">
+      <NameCon UId="26" Name="ErrorBits" />
+      <OpenCon UId="45" />
+    </Wire>
+  </Wires>
+</FlgNet></NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>PID_Compact</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="8" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="9" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.OB>
+</Document>

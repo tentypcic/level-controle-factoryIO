@@ -1,0 +1,57 @@
+﻿FUNCTION_BLOCK "IMC+PID"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      SP : Real;   // wartosc zadana
+      PV : Real;   // odpowiedz obiektu
+   END_VAR
+
+   VAR_OUTPUT 
+      MV : Real;   // sygnał sterujący
+   END_VAR
+
+   VAR 
+      PV_model : Real;   // odpowiedz modelu
+      e_ob_mo : Real;   // roznica obiekt - model
+      e : Real;   // SP - e_ob_mo
+      ef : Array[0..1] of Real;   // tablica, filtr + chwila poprzednia
+      MV1 : Real;   // syg. sterujacy z inwersji
+      MV2 : Real;   // syg. sterujacy z PID
+   END_VAR
+
+
+BEGIN
+	"Model_DB"(wejscie:=#MV,
+	           wyjscie=>#PV_model);
+	
+	
+	#e_ob_mo:=#PV-#PV_model;
+	#e:=#SP-#e_ob_mo;
+	
+	#ef[1]:=#ef[0];
+	#ef[0]:=0.2835*#e+0.7165*#ef[1];
+	
+	
+	"Inversion_DB"(wejscie:=#ef[0],
+	              wyjscie=>#MV1);
+	
+	"PID_DB_1"(SP:=#SP,
+	           PV:=#PV,
+	           MV:=#MV,
+	           kp:=0.2,
+	           ki:=0.8,
+	           kd:=0.1,
+	           MV_PID=>#MV2);
+	
+	       
+	#MV:=#MV1+#MV2;
+	
+	IF #MV>10.0 THEN
+	    #MV:=10.0;
+	END_IF;
+	
+	IF #MV<-10.0 THEN
+	    #MV:=-10.0;
+	END_IF;
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,242 @@
+﻿FUNCTION_BLOCK "Training"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      error_stop_m : Real;   // wartość błędu zatrzymująca uczenie modelu
+      error_stop_i : Real;   // wartość błędu zatrzymująca uczenie inwersji
+      epoch_stop_m : Real;   // numer epoki zatrzymujący uczenie modelu
+      epoch_stop_i : Real;   // numer epoki zatrzymujący uczenie inwersji
+      training_m : Bool;   // jeżeli 1 - ucz model
+      training_i : Bool;   // jeżeli 1 - ucz inwersje
+   END_VAR
+
+   VAR_OUTPUT 
+      error_ep_m { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // błąd epoki uczenia modelu
+      error_ep_i : Real;   // błąd epoki uczenia inwersji
+      stop_m : Bool;   // ukończono uczenie modelu
+      stop_i : Bool;   // ukończono uczenie inwersji
+   END_VAR
+
+   VAR_IN_OUT 
+      epoch : Real;   // numer epoki
+   END_VAR
+
+   VAR 
+      i : Int;   // zmienna pomocnicza
+      long : Int;   // zmienna pomocnicza
+      s : Array[0..7] of Real;   // tablica sum ważonych neuronów warstwy ukrytej
+      o : Array[0..7] of Real;   // tablica wyjść neuronów warstwy ukrytej
+      s2 : Real;   // suma ważona warstwy wyjściowej
+      e2 : Real;   // błąd na wyjściu sieci
+      e : Array[0..7] of Real;   // błędy propagowane
+      x_m : Array[0..5] of Real;   // wejścia sieci modelu
+      x_i : Array[0..5] of Real;   // wejścia sieci inwersji
+      n_m : Real;   // współczynnik prędkości uczenia sieci modelu
+      n_i : Real;   // współczynnik prędkości uczenia sieci inwersji
+   END_VAR
+
+
+BEGIN
+	#n_m:=0.005;
+	#n_i:=0.001;
+	
+	IF #training_m=true THEN
+	  FOR #long:=0 TO 249 DO
+	    IF #long=0 THEN
+	      #x_m[2]:=0.0;         // x(k-2)
+	      #x_m[1]:=0.0;         // x(k-1)
+	      #x_m[0]:="Measurement_DB".r_array[#long];  // x(k)
+	      #x_m[5]:=0.0;         // y(k-3)
+	      #x_m[4]:=0.0;         // y(k-2)
+	      #x_m[3]:=0.0;         // y(k-1)
+	    ELSE
+	      #x_m[2]:=#x_m[1];     // x(k-2)             
+	      #x_m[1]:=#x_m[0];     // x(k-1)
+	      #x_m[0]:="Measurement_DB".r_array[#long];  // x(k)
+	      #x_m[5]:=#x_m[4];     // y(k-3)
+	      #x_m[4]:=#x_m[3];     // y(k-2)
+	      #x_m[3]:="Measurement_DB".y_array[#long-1]; // y(k-1)
+	    END_IF;
+	 
+	    FOR #i:=0 TO "Model_DB".N-1 DO 
+	       #s[#i]:=#x_m[0]*"Model_DB".w1_1[#i] + #x_m[1]*"Model_DB".w1_2[#i] + #x_m[2]*"Model_DB".w1_3[#i] + #x_m[3]*"Model_DB".w1_4[#i]; 
+	       #s[#i]:=#s[#i] + #x_m[4]*"Model_DB".w1_5[#i] + #x_m[5]*"Model_DB".w1_6[#i] + "Model_DB".bias[#i];
+	       #o[#i]:=(1.0-EXP(-#s[#i]))/(1.0+EXP(-#s[#i]));
+	    END_FOR;
+	     
+	    #s2:=0.0;
+	    FOR #i:=0 TO "Model_DB".N-1 DO
+	        #s2:=#s2+#o[#i]*"Model_DB".w_2[#i];
+	    END_FOR;
+	    #s2:=#s2+"Model_DB".bias2;
+	                    
+	    #e2:="Measurement_DB".y_array[#long]-#s2;                                   
+	    
+	    FOR #i:=0 TO "Model_DB".N-1 DO
+	        #e[#i]:=#e2*"Model_DB".w_2[#i]*(1.0-(#o[#i]*#o[#i]));
+	    END_FOR;
+	    
+	    FOR #i:=0 TO "Model_DB".N-1 DO                                     
+	        "Model_DB".w1_1[#i]:="Model_DB".w1_1[#i]+#n_m*#e[#i]*#x_m[0];
+	        "Model_DB".w1_2[#i]:="Model_DB".w1_2[#i]+#n_m*#e[#i]*#x_m[1];
+	        "Model_DB".w1_3[#i]:="Model_DB".w1_3[#i]+#n_m*#e[#i]*#x_m[2];
+	        "Model_DB".w1_4[#i]:="Model_DB".w1_4[#i]+#n_m*#e[#i]*#x_m[3];
+	        "Model_DB".w1_5[#i]:="Model_DB".w1_5[#i]+#n_m*#e[#i]*#x_m[4];
+	        "Model_DB".w1_6[#i]:="Model_DB".w1_6[#i]+#n_m*#e[#i]*#x_m[5];
+	        "Model_DB".bias[#i]:="Model_DB".bias[#i]+#n_m*#e[#i];
+	    END_FOR;
+	    
+	    FOR #i:=0 TO "Model_DB".N-1 DO                                                
+	        "Model_DB".w_2[#i]:="Model_DB".w_2[#i]+#n_m*#e2*#o[#i];
+	    END_FOR;
+	        "Model_DB".bias2:="Model_DB".bias2+#n_m*#e2;
+	  END_FOR;
+	    
+	  #error_ep_m:=0.0;
+	  #s2:=0.0;
+	  FOR #long:=0 TO 249 DO
+	
+	    IF #long=0 THEN
+	      #x_m[2]:=0.0;         // x(k-2)
+	      #x_m[1]:=0.0;         // x(k-1)
+	      #x_m[0]:="Measurement_DB".r_array[#long];  // x(k)
+	      #x_m[5]:=0.0;         // y(k-3)
+	      #x_m[4]:=0.0;         // y(k-2)
+	      #x_m[3]:=0.0;         // y(k-1) 
+	    ELSE
+	      #x_m[2]:=#x_m[1];     // x(k-2)
+	      #x_m[1]:=#x_m[0];     // x(k-1)
+	      #x_m[0]:="Measurement_DB".r_array[#long];  // x(k)
+	      #x_m[5]:=#x_m[4];     // y(k-3)             
+	      #x_m[4]:=#x_m[3];     // y(k-2)
+	      #x_m[3]:=#s2;         // y(k-1)
+	    END_IF;
+	   
+	    FOR #i:=0 TO "Model_DB".N-1 DO
+	       #s[#i]:=#x_m[0]*"Model_DB".w1_1[#i] + #x_m[1]*"Model_DB".w1_2[#i] + #x_m[2]*"Model_DB".w1_3[#i] + #x_m[3]*"Model_DB".w1_4[#i]; 
+	       #s[#i]:=#s[#i] + #x_m[4]*"Model_DB".w1_5[#i] + #x_m[5]*"Model_DB".w1_6[#i] + "Model_DB".bias[#i];
+	       #o[#i]:=(1.0-EXP(-#s[#i]))/(1.0+EXP(-#s[#i]));
+	    END_FOR;
+	     
+	    #s2:=0.0;
+	    FOR #i:=0 TO "Model_DB".N-1 DO
+	      #s2:=#s2+#o[#i]*"Model_DB".w_2[#i];
+	    END_FOR;
+	    #s2:=#s2+"Model_DB".bias2; 
+	    
+	    #e2:="Measurement_DB".y_array[#long]-#s2;                               
+	    #error_ep_m:=#error_ep_m+ABS(#e2);                
+	  END_FOR;
+	
+	  IF #error_ep_m<#error_stop_m                
+	  THEN #stop_m:=true;                         
+	  ELSE #stop_m:=false;
+	  END_IF;
+	
+	END_IF;
+	
+	IF #training_i=true THEN           
+	  FOR #long := 0 TO 249 DO   
+	    IF #long=0 THEN          
+	      #x_i[2]:=0.0;             // y(k-2)
+	      #x_i[1]:=0.0;             // y(k-1)
+	      #x_i[0]:="Measurement_DB".y_array[#long]; // y(k)
+	      #x_i[5]:=0.0;             // x(k-3)
+	      #x_i[4]:=0.0;             // x(k-2)
+	      #x_i[3]:=0.0;             // x(k-1)
+	    ELSE
+	      #x_i[2]:=#x_i[1];         // y(k-2)
+	      #x_i[1]:=#x_i[0];         // y(k-1)
+	      #x_i[0]:="Measurement_DB".y_array[#long]; // y(k)
+	      #x_i[5]:=#x_i[4];         // x(k-3)
+	      #x_i[4]:=#x_i[3];         // x(k-2)
+	      #x_i[3]:="Measurement_DB".r_array[#long-1];  // x(k-1)
+	    END_IF;
+	      
+	  
+	    FOR #i:=0 TO "Inversion_DB".N-1 DO
+	       #s[#i]:=#x_i[0]*"Inversion_DB".w1_1[#i] + #x_i[1]*"Inversion_DB".w1_2[#i] + #x_i[2]*"Inversion_DB".w1_3[#i] + #x_i[3]*"Inversion_DB".w1_4[#i];
+	       #s[#i]:=#s[#i] + #x_i[4]*"Inversion_DB".w1_5[#i] + #x_i[5]*"Inversion_DB".w1_6[#i] + "Inversion_DB".bias[#i];
+	       #o[#i]:=(1.0-EXP(-#s[#i]))/(1.0+EXP(-#s[#i]));
+	    END_FOR;
+	     
+	    #s2:=0.0;
+	    FOR #i:=0 TO "Inversion_DB".N-1 DO
+	        #s2:=#s2+#o[#i]*"Inversion_DB".w_2[#i];
+	    END_FOR;
+	    #s2:=#s2+"Inversion_DB".bias2;   
+	                           
+	    #e2:="Measurement_DB".r_array[#long]-#s2;                          
+	    
+	    FOR #i:=0 TO "Inversion_DB".N-1 DO 
+	        #e[#i]:=#e2*"Inversion_DB".w_2[#i]*(1.0-#o[#i]*#o[#i]);// gdzie f'(s)=1-o(i)*o(i)
+	    END_FOR;
+	    
+	    FOR #i:=0 TO "Inversion_DB".N-1 DO                                              
+	        "Inversion_DB".w1_1[#i]:="Inversion_DB".w1_1[#i]+#n_i*#e[#i]*#x_i[0];
+	        "Inversion_DB".w1_2[#i]:="Inversion_DB".w1_2[#i]+#n_i*#e[#i]*#x_i[1];
+	        "Inversion_DB".w1_3[#i]:="Inversion_DB".w1_3[#i]+#n_i*#e[#i]*#x_i[2];
+	        "Inversion_DB".w1_4[#i]:="Inversion_DB".w1_4[#i]+#n_i*#e[#i]*#x_i[3];
+	        "Inversion_DB".w1_5[#i]:="Inversion_DB".w1_5[#i]+#n_i*#e[#i]*#x_i[4];
+	        "Inversion_DB".w1_6[#i]:="Inversion_DB".w1_6[#i]+#n_i*#e[#i]*#x_i[5];
+	        "Inversion_DB".bias[#i]:="Inversion_DB".bias[#i]+#n_i*#e[#i];
+	    END_FOR;
+	    
+	    FOR #i:=0 TO "Inversion_DB".N-1 DO                                                 
+	        "Inversion_DB".w_2[#i]:="Inversion_DB".w_2[#i]+#n_i*#e2*#o[#i];
+	    END_FOR;
+	        "Inversion_DB".bias2:="Inversion_DB".bias2+#n_i*#e2;
+	  END_FOR;
+	      
+	  #error_ep_i:=0.0;
+	  #s2:=0.0;
+	  FOR #long := 0 TO 249 DO   
+	      
+	    IF #long=0 THEN
+	      #x_i[2]:=0.0;             // y(k-2)
+	      #x_i[1]:=0.0;             // y(k-1)
+	      #x_i[0]:="Measurement_DB".y_array[#long]; // y(k)
+	      #x_i[5]:=0.0;             // x(k-3)
+	      #x_i[4]:=0.0;             // x(k-2)
+	      #x_i[3]:=0.0;             // x(k-1)
+	    ELSE
+	      #x_i[2]:=#x_i[1];         // y(k-2)
+	      #x_i[1]:=#x_i[0];         // y(k-1)
+	      #x_i[0]:="Measurement_DB".y_array[#long]; // y(k)
+	      #x_i[5]:=#x_i[4];         // x(k-3)
+	      #x_i[4]:=#x_i[3];         // x(k-2)
+	      #x_i[3]:=#s2;             // x(k-1)
+	    END_IF;
+	      
+	    FOR #i:=0 TO "Inversion_DB".N-1 DO  
+	       #s[#i]:=#x_i[0]*"Inversion_DB".w1_1[#i] + #x_i[1]*"Inversion_DB".w1_2[#i] + #x_i[2]*"Inversion_DB".w1_3[#i] + #x_i[3]*"Inversion_DB".w1_4[#i] + #x_i[4]*"Inversion_DB".w1_5[#i] + #x_i[5]*"Inversion_DB".w1_6[#i] + "Inversion_DB".bias[#i];
+	       #o[#i]:=(1.0-EXP(-#s[#i]))/(1.0+EXP(-#s[#i]));
+	    END_FOR;
+	     
+	    #s2:=0.0;
+	    FOR #i:=0 TO "Inversion_DB".N-1 DO  
+	        #s2:=#s2+#o[#i]*"Inversion_DB".w_2[#i];
+	    END_FOR;
+	    #s2:=#s2+"Inversion_DB".bias2;      
+	                           
+	    #e2:="Measurement_DB".r_array[#long]-#s2;                                   
+	    #error_ep_i:=#error_ep_i+ABS(#e2);             
+	  END_FOR;
+	  
+	  IF #error_ep_i<#error_stop_i                      
+	  THEN #stop_i:=true;                           
+	  ELSE #stop_i:=false;
+	  END_IF;
+	  
+	END_IF;
+	
+	
+	IF #epoch=(#epoch_stop_m-1)          
+	THEN #stop_m:=true;
+	END_IF;
+	IF #epoch=(#epoch_stop_i-1)        
+	THEN #stop_i:=true;
+	END_IF;
+	#epoch:=#epoch+1.0;                  
+END_FUNCTION_BLOCK
+

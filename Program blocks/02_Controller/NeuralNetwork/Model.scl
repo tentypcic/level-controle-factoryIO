@@ -1,0 +1,53 @@
+﻿FUNCTION_BLOCK "Model"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      wejscie : Real;   // wejscie modelu
+   END_VAR
+
+   VAR_OUTPUT 
+      wyjscie : Real;   // wyjscie modelu
+   END_VAR
+
+   VAR 
+      x : Array[0..5] of Real;   // tablica wejść sieci
+      s : Array[0..7] of Real;   // tablica sum ważonych neuronów warstwy ukrytej
+      o : Array[0..7] of Real;   // tablica wyjść neuronów warstwy ukrytej
+      s2 : Real;   // suma ważona warstwy wyjściowej
+      i : Int;   // zmienna pomocnicza
+      w1_1 : Array[0..7] of Real;   // wagi połączenia 1 wejscia z neuronami w. ukrytej
+      w1_2 : Array[0..7] of Real;   // wagi połączenia 2 wejscia z neuronami w. ukrytej
+      w1_3 : Array[0..7] of Real;   // wagi połączenia 3 wejscia z neuronami w. ukrytej
+      w1_4 : Array[0..7] of Real;   // wagi połączenia 4 wejscia z neuronami w. ukrytej
+      w1_5 : Array[0..7] of Real;   // wagi połączenia 5 wejscia z neuronami w. ukrytej
+      w1_6 : Array[0..7] of Real;   // wagi połączenia 6 wejscia z neuronami w. ukrytej
+      w_2 : Array[0..7] of Real;   // wagi połączenia neuronów w.ukrytej z neuronem wyjsciowym
+      bias : Array[0..7] of Real;   // tablica biasów warstwy ukrytej
+      bias2 : Real;   // bias warstwy wyjściowej
+      N : Int;   // liczba neuronów w warstwie ukrytej
+   END_VAR
+
+
+BEGIN
+	#x[2]:=#x[1];             // x(k-2)
+	#x[1]:=#x[0];             // x(k-1)
+	#x[0]:=#wejscie;          // x(k)
+	#x[5]:=#x[4];             // y(k-3)
+	#x[4]:=#x[3];             // y(k-2)
+	#x[3]:=#s2;               // y(k-1)
+	
+	FOR #i:=0 TO #N-1 DO
+	   #s[#i]:=#x[0]*#w1_1[#i] + #x[1]*#w1_2[#i] + #x[2]*#w1_3[#i];
+	   #s[#i]:=#s[#i] + #x[3]*#w1_4[#i] + #x[4]*#w1_5[#i] + #x[5]*#w1_6[#i] + #bias[#i]; // jw, + bias
+	   #o[#i]:=(1.0-EXP(-#s[#i]))/(1.0+EXP(-#s[#i])); //f. activation sigmoidalna
+	 END_FOR;
+	 
+	#s2:=0.0;
+	FOR #i:=0 TO #N-1 DO 
+	    #s2:=#s2+#o[#i]*#w_2[#i];
+	END_FOR;
+	
+	#s2:=#s2+#bias2;
+	#wyjscie:=#s2;
+END_FUNCTION_BLOCK
+

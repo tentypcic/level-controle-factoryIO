@@ -1,0 +1,42 @@
+﻿FUNCTION_BLOCK "Object"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      r : Real;
+      disruption : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      y : Real;
+   END_VAR
+
+   VAR 
+      x_array : Array[0..2] of Real;
+      y_array : Array[0..2] of Real;
+   END_VAR
+
+
+BEGIN
+	#x_array[2]:=#x_array[1];
+	#x_array[1]:=#x_array[0];
+	#x_array[0]:=#r;
+	
+	#y_array[2]:=#y_array[1];
+	#y_array[1]:=#y_array[0];
+	
+	
+	#y_array[0]:=0.3*1.3*#x_array[0]+0.1*#x_array[1]+0.6*0.8*#y_array[1]-0.4*1.5*#y_array[2]+0.03*0.5*#y_array[2]*#y_array[2] + #disruption;
+	
+	
+	IF ABS(#y_array[0])<0.0001 THEN
+	  #y_array[0]:=0.0;
+	END_IF;
+	
+	#y:=#y_array[0];
+	
+	
+	
+	
+	
+END_FUNCTION_BLOCK
+

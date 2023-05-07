@@ -1,0 +1,40 @@
+﻿FUNCTION_BLOCK "On-Off"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      SetPoint : Real;   // Real
+      Hysteresis : Real;   // Real
+      PV : Real;   // Real
+   END_VAR
+
+   VAR_OUTPUT 
+      MV : Real;   // Real
+   END_VAR
+
+   VAR 
+      UpperLimit : Real;
+      LowerLimit : Real;
+   END_VAR
+
+
+BEGIN
+	#UpperLimit := #SetPoint + #Hysteresis / 2;
+	#LowerLimit := #SetPoint - #Hysteresis / 2;
+	
+	IF #PV > #UpperLimit THEN
+	    #MV := -10.0;
+	    IF #PV = #LowerLimit THEN
+	        #MV := 0.0;
+	    END_IF;
+	END_IF;
+	
+	
+	IF #PV < #LowerLimit THEN
+	    #MV := 10.0;
+	    
+	    IF #PV = #UpperLimit THEN
+	        #MV := 0.0;
+	    END_IF;
+	END_IF;
+END_FUNCTION_BLOCK
+

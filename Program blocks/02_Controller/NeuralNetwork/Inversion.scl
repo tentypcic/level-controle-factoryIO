@@ -1,0 +1,53 @@
+﻿FUNCTION_BLOCK "Inversion"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      wejscie : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      wyjscie : Real;
+   END_VAR
+
+   VAR 
+      x : Array[0..5] of Real;
+      s : Array[0..7] of Real;
+      o : Array[0..7] of Real;
+      s2 : Real;
+      i : Int;
+      w1_1 : Array[0..7] of Real;
+      w1_2 : Array[0..7] of Real;
+      w1_3 : Array[0..7] of Real;
+      w1_4 : Array[0..7] of Real;
+      w1_5 : Array[0..7] of Real;
+      w1_6 : Array[0..7] of Real;
+      w_2 : Array[0..7] of Real;
+      bias : Array[0..7] of Real;
+      bias2 : Real;
+      N : Int;
+   END_VAR
+
+
+BEGIN
+	#x[2]:=#x[1];             // x(k-2)
+	#x[1]:=#x[0];             // x(k-1)
+	#x[0]:=#wejscie;          // x(k)
+	#x[5]:=#x[4];             // y(k-3)
+	#x[4]:=#x[3];             // y(k-2)
+	#x[3]:=#s2;               // y(k-1)
+	
+	FOR #i:=0 TO #N-1 DO
+	   #s[#i]:=#x[0]*#w1_1[#i] + #x[1]*#w1_2[#i] + #x[2]*#w1_3[#i];
+	   #s[#i]:=#s[#i] + #x[3]*#w1_4[#i] + #x[4]*#w1_5[#i] + #x[5]*#w1_6[#i] + #bias[#i]; // jw, + bias
+	   #o[#i]:=(1.0-EXP(-#s[#i]))/(1.0+EXP(-#s[#i])); // f. sigmoidalna
+	 END_FOR;
+	 
+	#s2:=0.0;
+	FOR #i:=0 TO #N-1 DO
+	    #s2:=#s2+#o[#i]*#w_2[#i];
+	END_FOR;
+	
+	#s2:=#s2+#bias2;
+	#wyjscie:=#s2;
+END_FUNCTION_BLOCK
+

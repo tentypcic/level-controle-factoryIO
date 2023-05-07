@@ -1,0 +1,116 @@
+﻿FUNCTION_BLOCK "Takagi-SugenoFuzzy-PI"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      PV : Real;
+      SP : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      MV : Real;
+   END_VAR
+
+   VAR 
+      n_e : Real;
+      i_e : Real;
+      ni_e : Real;
+   END_VAR
+
+   VAR_TEMP 
+      e : Real;
+      u : Real;
+      sp_M_e : Real;
+      sp_S_e : Real;
+      sp_D_e : Real;
+      sp_M_ie : Real;
+      sp_S_ie : Real;
+      sp_D_ie : Real;
+      pz1 : Real;
+      pz2 : Real;
+      pz3 : Real;
+      pz4 : Real;
+      pz5 : Real;
+      pz6 : Real;
+      pz7 : Real;
+      pz8 : Real;
+      pz9 : Real;
+   END_VAR
+
+
+BEGIN
+	#n_e:=5.0;
+	#ni_e:=0.25;
+	
+	#e:=#SP-#PV;
+	#e:=#n_e*#e;
+	IF #e>10.0 THEN
+	    #e := 10.0;
+	ELSIF #e<-10.0 THEN
+	  #e:=-10.0;
+	END_IF;
+	
+	#i_e:=#i_e+#e;
+	#i_e:=#ni_e*#i_e;
+	IF #i_e>10.0 THEN
+	  #i_e:=10.0;
+	ELSIF #i_e<-10.0 THEN
+	  #i_e:=-10.0;
+	END_IF;
+	
+	IF #e<0.0 THEN
+	  #sp_M_e:=(#e)/-10.0;
+	  #sp_S_e:=(#e)/10.0+1.0;
+	  #sp_D_e:=0.0;
+	ELSIF #e>0.0 THEN
+	  #sp_D_e:=(#e)/10.0;
+	  #sp_S_e:=(#e)/-10.0+1.0;
+	  #sp_M_e:=0.0;
+	ELSE
+	  #sp_M_e:=0.0;
+	  #sp_D_e:=0.0;
+	  #sp_S_e:=1.0;
+	END_IF;
+	
+	IF #i_e<0.0 THEN
+	  #sp_M_ie:=(#i_e)/-10.0;
+	  #sp_S_ie:=(#i_e)/10.0+1.0; //jw.
+	  #sp_D_ie:=0.0;
+	ELSIF #i_e>0.0 THEN
+	  #sp_D_ie:=(#i_e)/10.0;
+	  #sp_S_ie:=(#i_e)/-10.0+1.0;//jw.
+	  #sp_M_ie:=0.0;
+	ELSE
+	  #sp_M_ie:=0.0;
+	  #sp_D_ie:=0.0;
+	  #sp_S_ie:=1.0;
+	END_IF;
+	
+	#pz1:=MIN(IN1:=#sp_M_e, IN2:=#sp_M_ie); 
+	#pz2:=MIN(IN1:=#sp_S_e, IN2:=#sp_M_ie);
+	#pz3:=MIN(IN1:=#sp_D_e, IN2:=#sp_M_ie);
+	#pz4:=MIN(IN1:=#sp_M_e, IN2:=#sp_S_ie);
+	#pz5:=MIN(IN1:=#sp_S_e, IN2:=#sp_S_ie);
+	#pz6:=MIN(IN1:=#sp_D_e, IN2:=#sp_S_ie);
+	#pz7:=MIN(IN1:=#sp_M_e, IN2:=#sp_D_ie);
+	#pz8:=MIN(IN1:=#sp_S_e, IN2:=#sp_D_ie);
+	#pz9:=MIN(IN1:=#sp_D_e, IN2:=#sp_D_ie);
+	
+	 #u:=(#pz1*0.0+#pz2*0.0+#pz3*5.0+#pz4*0.0+#pz5*5.0
+	                    +#pz6*10.0+#pz7*5.0++#pz8*10.0++#pz9*10.0)
+	                    /(#pz1+#pz2+#pz3+#pz4+#pz5+#pz6+#pz7+#pz8+#pz9);
+	
+	IF #u>10.0 THEN
+	  #u:=10.0;
+	END_IF;
+	
+	IF #u < 5.0 AND #u > -5.0 THEN
+	    #u := 0;
+	END_IF;
+	
+	IF #u < -10.0 THEN
+	    #u := -10.0;
+	END_IF;
+	
+	#MV := #u;
+END_FUNCTION_BLOCK
+

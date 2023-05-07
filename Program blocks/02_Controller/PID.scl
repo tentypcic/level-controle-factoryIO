@@ -1,0 +1,54 @@
+﻿FUNCTION_BLOCK "PID"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+   VAR_INPUT 
+      SP : Real;
+      PV : Real;
+      MV : Real;
+      kp : Real;
+      ki : Real;
+      kd : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      MV_PID : Real;
+   END_VAR
+
+   VAR 
+      ep : Array[0..1] of Real;
+      de : Real;
+      suma_ep : Real;
+   END_VAR
+
+
+BEGIN
+	#ep[0]:=#SP-#PV;
+	
+	IF (ABS(#ep[0]))<(ABS(#SP)) THEN
+	  #de:=#ep[0]-#ep[1];                                   
+	  
+	  IF #MV<10.0 THEN
+	    IF #MV>-10.0 THEN      
+	      #suma_ep:=#suma_ep+#ep[0];
+	    END_IF;
+	  END_IF;
+	  
+	  #MV_PID:=#kp*#ep[0] + #ki*#suma_ep + #kd*#de;  
+	  
+	  IF #MV_PID > 10.0 THEN
+	      #MV_PID := 10.0;
+	  END_IF;
+	  
+	  IF #MV_PID < -10.0 THEN
+	      #MV_PID := -10.0;
+	  END_IF;
+	    
+	  #ep[1]:=#ep[0];
+	  
+	ELSE                      
+	  #ep[1]:=0.0;
+	  #suma_ep:=0.0;
+	  
+	END_IF;
+END_FUNCTION_BLOCK
+
