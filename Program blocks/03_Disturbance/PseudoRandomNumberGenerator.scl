@@ -1,0 +1,36 @@
+﻿FUNCTION "PseudoRandomNumberGenerator" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      lowRangeInt : Int;
+      highRangeInt : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      RandomInt : Int;
+   END_VAR
+
+   VAR_TEMP 
+      diTime : DInt;
+      rTime : Real;
+      timeTck : Time;
+      rTemp : Real;
+   END_VAR
+
+
+BEGIN
+	 // read systemtime
+	#timeTck := TIME_TCK(); // TIME
+	    
+	// calculate random number
+	#diTime := TIME_TO_DINT(#timeTck);
+	#rTime := DINT_TO_REAL(#diTime);
+	#rTemp := SIN(#rTime);
+	
+	IF #rTemp < 0 THEN
+	    #rTemp := #rTemp * (-1);
+	END_IF;
+	
+	#RandomInt := REAL_TO_INT(#rTemp*(#highRangeInt-#lowRangeInt))+#lowRangeInt;
+END_FUNCTION
+
