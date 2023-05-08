@@ -1,5 +1,5 @@
 <h2 align="center">Level controle</h2>
-<p align="center"><img src=""></p>
+<p align="center"><img src="Documentation\level-controle.gif"></p>
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
@@ -17,8 +17,7 @@
   - [Factory IO](#factory-io)
   - [TIA Portal](#tia-portal)
   - [Version Controle Interface](#version-controle-interface)
-  - [ACT](#act)
-    - [SIMATIC Automation Compare Tool](#simatic-automation-compare-tool)
+  - [SIMATIC Automation Compare Tool](#simatic-automation-compare-tool)
 
 ## Built With
 This project was bult using these technologies:
@@ -43,18 +42,24 @@ Code in TIA Portal V17. The tank has been modelled in Factory IO 3D simulation s
  - [x] Neural network NNARX Controller
 
 ### Project tree
+<p align="center"><img src="Documentation\project_tree.png"></p>
 
 ### HMI panel
+<p align="center"><img src="Documentation\hmi_panel.gif"></p>
 
 ### Controller
 
 #### On-Off
+<p align="center"><img src="Documentation\on-off.png"></p>
 
 #### PID
+<p align="center"><img src="Documentation\pid.jpg"></p>
 
 #### TSK
+<p align="center"><img src=""></p>
 
 #### NNARX
+<p align="center"><img src="imc+pid.png"></p>
 
 ## How To Use
 
@@ -80,7 +85,5 @@ On TIA v16 and later:
     
     # Use the Version Control Interface (VCI) in TIA to synchronise programme
 
-### ACT
-
-#### SIMATIC Automation Compare Tool
+### SIMATIC Automation Compare Tool
 You can view the functions and blocks in the .xml extension directly using the SIMATIC Automation Compare Tool software.
