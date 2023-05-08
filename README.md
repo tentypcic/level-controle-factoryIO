@@ -53,13 +53,13 @@ Code in TIA Portal V17. The tank has been modelled in Factory IO 3D simulation s
 <p align="center"><img src="Documentation\on-off.png"></p>
 
 #### PID
-<p align="center"><img src="Documentation\PID.jpg"></p>
+<p align="center"><img src="Documentation\pid.png"></p>
 
 #### TSK
 <p align="center"><img src="Documentation\"></p>
 
 #### NARX
-<p align="center"><img src="Documentation\IMC+PID.png"></p>
+<p align="center"><img src="Documentation\imc+pid.png"></p>
 <p align="center"><img src="Documentation\narx.png"></p>
 
 ## How To Use
