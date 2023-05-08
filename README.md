@@ -12,7 +12,7 @@
     - [On-Off](#on-off)
     - [PID](#pid)
     - [TSK](#tsk)
-    - [NNARX](#nnarx)
+    - [NARX](#narx)
 - [How To Use](#how-to-use)
   - [Factory IO](#factory-io)
   - [TIA Portal](#tia-portal)
@@ -53,13 +53,14 @@ Code in TIA Portal V17. The tank has been modelled in Factory IO 3D simulation s
 <p align="center"><img src="Documentation\on-off.png"></p>
 
 #### PID
-<p align="center"><img src="Documentation\pid.jpg"></p>
+<p align="center"><img src="Documentation\PID.jpg"></p>
 
 #### TSK
-<p align="center"><img src=""></p>
+<p align="center"><img src="Documentation\"></p>
 
-#### NNARX
-<p align="center"><img src="imc+pid.png"></p>
+#### NARX
+<p align="center"><img src="Documentation\IMC+PID.png"></p>
+<p align="center"><img src="Documentation\narx.png"></p>
 
 ## How To Use
 
@@ -85,5 +86,13 @@ On TIA v16 and later:
     
     # Use the Version Control Interface (VCI) in TIA to synchronise programme
 
+<p align="center">
+  <img src="https://www.dmcinfo.com/Portals/0/Siemens-VCI-image-2.png">
+</p>
+
 ### SIMATIC Automation Compare Tool
 You can view the functions and blocks in the .xml extension directly using the SIMATIC Automation Compare Tool software.
+
+<p align="center">
+  <img src="https://github.com/tentypcic/sorting-by-weight-factoryIO/blob/main/Documantation/act.png?raw=true">
+</p>
