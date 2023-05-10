@@ -9,11 +9,6 @@
   - [Project tree](#project-tree)
   - [HMI panel](#hmi-panel)
   - [Controller](#controller)
-    - [Ramp](#ramp)
-    - [On-Off](#on-off)
-    - [PID](#pid)
-    - [TS](#ts)
-    - [NARX](#narx)
 - [How To Use](#how-to-use)
   - [Factory IO](#factory-io)
   - [TIA Portal](#tia-portal)
@@ -58,23 +53,23 @@ The HMI displays basic tank level control information. It shows pump status, sen
 
 The programme includes controllers written in scl and lad.
 
-#### Ramp
+### Ramp
 <p align="center"><img src="Documentation\ramp.png"></p>
 
 In automation systems, ramp functions are commonly used as input signals for controllers or actuators, and as a means to smoothly start, stop or regulate the speed of a mechanical system. A ramp is a mathematical function that describes a gradual increase or decrease in the value of a signal over time.
 
-#### On-Off
+### On-Off
 <p align="center"><img src="Documentation\on-off.png"></p>
 
 An on-off controller with hysteresis, also known as a hysteresis controller, is a type of control system used in automation and process control. It is a simple and cost-effective way of controlling a system by turning it on and off based on a set of threshold values, while also introducing a small amount of hysteresis to prevent rapid switching between on and off states.
 
-#### PID
+### PID
 <p align="center"><img src="Documentation\pid.png"></p>
 
 The incremental PID algorithm is a variation of the classic PID control algorithm used for feedback control systems. It is a form of PID control that calculates the output of the controller based on the change or increment in the input rather than the absolute value of the input. In the incremental PID algorithm, the controller calculates the output by considering the difference between the current input and the previous input, as well as the difference between the current error and the previous error. By taking these differences, the controller calculates the incremental change in the output needed to adjust the system and achieve the desired setpoint.
 
-#### TS
-<p align="center"><img src="Documentation\tsk.png"></p>
+### TS
+<p align="center"><img src="Documentation\ts.png"></p>
 
 The Takagi-Sugeno (TS) fuzzy PI controller is a type of controller that uses fuzzy logic to adjust the proportional and integral gains of a PI controller based on the current operating conditions of the system. The TS fuzzy PI controller is a variation of the classical PI controller that is commonly used in industrial control systems.
 
@@ -88,7 +83,7 @@ NARX (Nonlinear Autoregressive with eXogenous inputs) neural control is a type o
 
 The NARX neural control system uses a feedforward neural network to model the behavior of the system being controlled. The neural network takes as input the current and past values of the system's inputs and outputs, as well as any exogenous inputs, and uses them to predict the future output of the system. The network is trained using a set of input/output data collected from the system, and the weights of the network are adjusted using a backpropagation algorithm to minimize the difference between the predicted and actual outputs.
 
-<p align="center"><img src="Documentation\imc+pid.png"></p>
+<p align="center"><img src="Documentation\imc-pid.png"></p>
 
 Once the neural network is trained, it is used as a controller to regulate the behavior of the system being controlled. The controller takes as input the current and past values of the system's inputs and outputs, as well as any exogenous inputs, and uses the neural network to predict the future output of the system. The difference between the predicted and desired outputs is used to adjust the control signals sent to the system to bring it into the desired state.
 
