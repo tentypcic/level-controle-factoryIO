@@ -14,6 +14,7 @@
   - [TIA Portal](#tia-portal)
   - [Version Controle Interface](#version-controle-interface)
   - [SIMATIC Automation Compare Tool](#simatic-automation-compare-tool)
+- [License](#license)
 
 ## Built With
 This project was bult using these technologies:
@@ -121,3 +122,7 @@ You can view the functions and blocks in the .xml extension directly using the S
 <p align="center">
   <img src="Documentation\images\act.png">
 </p>
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
