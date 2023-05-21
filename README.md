@@ -2,7 +2,6 @@
 <p align="center"><img src="Documentation\images\level-controle.gif"></p>
 
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Built With](#built-with)
 - [About The Project](#about-the-project)
   - [Features](#features)
