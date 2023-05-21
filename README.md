@@ -1,7 +1,7 @@
 <h2 align="center">Level controle</h2>
 <p align="center"><img src="Documentation\images\level-controle.gif"></p>
   <p align="center">
-    Project code in TIA Portal and modeled in FacotryIO.
+    Project code in TIA Portal and model in FacotryIO.
     <br />
     <a href="https://plc-programme-viewer.000webhostapp.com/">View demo</a>
     ·
