@@ -2,7 +2,6 @@
 <p align="center"><img src="Documentation\images\level-controle.gif"></p>
   <p align="center">
     Project code in TIA Portal and model in FacotryIO.
-    <br />
     <a href="https://plc-programme-viewer.000webhostapp.com/">View demo</a>
     ·
     <a href="https://github.com/tentypcic/level-controle-factoryIO/issues">Report Bug</a>
