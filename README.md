@@ -114,7 +114,7 @@ On TIA v16 and later:
  
     # Clone this repository into your worksapce
     
-    $ git clone https://github.com/tentypcic/sorting-by-weight-factoryIO
+    $ git clone https://github.com/tentypcic/level-controle-factoryIO.git
     
     # Use the Version Control Interface (VCI) in TIA to synchronise programme
 
